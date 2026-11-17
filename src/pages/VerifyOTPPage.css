@@ -1,0 +1,635 @@
+.verify-page {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 18% 44%, rgb(239 237 255 / 90%) 0, rgb(239 237 255 / 0%) 38%),
+    radial-gradient(ellipse at 88% 12%, rgb(228 223 255 / 50%) 0, rgb(228 223 255 / 0%) 33%),
+    linear-gradient(135deg, #fcfcff 0%, #fff 58%, #f8f7ff 100%);
+}
+
+.verify-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: min(1120px, calc(100% - 64px));
+  height: 100%;
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 440px);
+  align-items: center;
+  gap: clamp(36px, 6vw, 88px);
+  margin: 0 auto;
+  padding: 96px 0 44px;
+}
+
+.verify-visual {
+  min-width: 0;
+  text-align: center;
+}
+
+.verify-visual-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: -5px;
+  color: #777f98;
+  font-size: 13px;
+}
+
+.verify-caption-mark {
+  color: #7650f5;
+  font-size: 16px;
+}
+
+.verify-card {
+  position: relative;
+  width: 100%;
+  padding: 35px 32px 28px;
+  border: 1px solid #eeeff8;
+  border-radius: 23px;
+  background: rgb(255 255 255 / 95%);
+  box-shadow: 0 18px 48px rgb(34 41 93 / 8%), 0 3px 10px rgb(34 41 93 / 3%);
+  text-align: center;
+}
+
+.verify-back {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-items: center;
+  padding: 0;
+  border: 1px solid #e3e5f0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 3px 10px rgb(43 39 92 / 5%);
+  color: #656d88;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.verify-back:hover {
+  border-color: #c9c1f3;
+  box-shadow: 0 5px 13px rgb(72 60 163 / 9%);
+  color: #7650f5;
+}
+
+.verify-card h1 {
+  margin: 12px 0 8px;
+  color: #101331;
+  font-family: 'Manrope', 'DM Sans', sans-serif;
+  font-size: 29px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.25;
+}
+
+.verify-card h1 span {
+  background: var(--primary-gradient);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.verify-instructions {
+  margin: 0;
+  color: #737d9a;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.verify-email {
+  overflow-wrap: anywhere;
+  margin: 5px 0 0;
+  color: #4b55a5;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.verify-form {
+  margin-top: 24px;
+  text-align: left;
+}
+
+.otp-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #353d5d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.demo-hint {
+  margin-top: 10px;
+  color: #8189a2;
+  font-size: 10px;
+  text-align: center;
+}
+
+.demo-hint strong {
+  color: #6552dc;
+  letter-spacing: 1px;
+}
+
+.resend-row {
+  display: flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 6px;
+  color: #737d9a;
+  font-size: 11px;
+}
+
+.resend-countdown,
+.resend-button {
+  color: #6951e5;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.resend-button {
+  padding: 4px 2px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.resend-button:hover {
+  text-decoration: underline;
+}
+
+.otp-feedback {
+  min-height: 30px;
+  padding-top: 2px;
+}
+
+.otp-message {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.otp-message--error {
+  color: #6655c9;
+}
+
+.otp-message--success {
+  color: #5362a0;
+}
+
+.otp-message--notice {
+  color: #6655c9;
+}
+
+.verify-button {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--primary-gradient);
+  box-shadow: 0 9px 18px rgb(93 78 231 / 21%);
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform 170ms ease, box-shadow 170ms ease, opacity 170ms ease;
+}
+
+.verify-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 23px rgb(93 78 231 / 28%);
+}
+
+.verify-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.56;
+}
+
+.verify-button svg {
+  flex: 0 0 auto;
+}
+
+.otp-security-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 23px;
+  padding: 14px;
+  border: 1px solid #e8e4ff;
+  border-radius: 14px;
+  background: #f7f5ff;
+  text-align: left;
+}
+
+.otp-security-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: #efedff;
+  color: #7058e4;
+}
+
+.otp-security-copy {
+  display: grid;
+  gap: 3px;
+  padding-top: 1px;
+}
+
+.otp-security-copy strong {
+  color: #252b4c;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.otp-security-copy > span {
+  color: #737d9a;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .verify-layout {
+    width: min(100% - 40px, 520px);
+    height: 100%;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    gap: 0;
+    padding: 88px 0 30px;
+  }
+
+  .verify-visual {
+    margin-bottom: -2px;
+  }
+
+  .verification-art {
+    width: min(100%, 370px);
+  }
+
+  .verify-visual-caption {
+    display: none;
+  }
+
+  .verify-card {
+    width: min(100%, 460px);
+    justify-self: center;
+  }
+}
+
+@media (max-width: 900px) and (max-height: 760px) {
+  .verify-layout {
+    align-content: start;
+    padding-top: 84px;
+    padding-bottom: 12px;
+  }
+
+  .verify-card {
+    padding: 20px 20px 16px;
+    border-radius: 19px;
+  }
+
+  .verify-card h1 {
+    margin: 7px 0 5px;
+    font-size: 25px;
+  }
+
+  .verify-form {
+    margin-top: 14px;
+  }
+
+  .otp-digit {
+    height: 44px;
+    border-radius: 10px;
+    font-size: 19px;
+  }
+
+  .demo-hint {
+    margin-top: 6px;
+    font-size: 9px;
+  }
+
+  .resend-row {
+    min-height: 28px;
+    margin-top: 2px;
+  }
+
+  .otp-feedback {
+    min-height: 22px;
+  }
+
+  .verify-button {
+    height: 42px;
+  }
+
+  .otp-security-notice {
+    gap: 9px;
+    margin-top: 12px;
+    padding: 10px;
+  }
+
+  .otp-security-icon {
+    width: 29px;
+    height: 29px;
+  }
+}
+
+@media (min-width: 901px) and (max-height: 700px) {
+  .verify-layout {
+    padding: 72px 0 10px;
+    gap: clamp(20px, 4vw, 48px);
+  }
+
+  .verification-art {
+    width: min(100%, 440px);
+  }
+
+  .verify-card {
+    padding: 13px 18px 11px;
+    border-radius: 18px;
+  }
+
+  .verify-card h1 {
+    margin: 5px 0 3px;
+    font-size: 23px;
+  }
+
+  .verify-instructions,
+  .verify-email {
+    font-size: 11px;
+  }
+
+  .verify-form {
+    margin-top: 10px;
+  }
+
+  .otp-label {
+    margin-bottom: 6px;
+    font-size: 10px;
+  }
+
+  .otp-digit {
+    height: 38px;
+    border-radius: 8px;
+    font-size: 17px;
+  }
+
+  .demo-hint {
+    margin-top: 4px;
+    font-size: 8px;
+  }
+
+  .resend-row {
+    min-height: 23px;
+    margin-top: 2px;
+    font-size: 9px;
+  }
+
+  .resend-countdown,
+  .resend-button {
+    font-size: 9px;
+  }
+
+  .otp-feedback {
+    min-height: 16px;
+  }
+
+  .otp-message {
+    font-size: 9px;
+  }
+
+  .verify-button {
+    height: 37px;
+    border-radius: 9px;
+    font-size: 11px;
+  }
+
+  .otp-security-notice {
+    gap: 7px;
+    margin-top: 8px;
+    padding: 7px;
+    border-radius: 10px;
+  }
+
+  .otp-security-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .otp-security-copy strong {
+    font-size: 9px;
+  }
+
+  .otp-security-copy > span {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 640px) {
+  .verify-layout {
+    width: calc(100% - 32px);
+    height: 100%;
+    padding: 76px 0 20px;
+  }
+
+  .verify-visual {
+    margin-bottom: -7px;
+  }
+
+  .verification-art {
+    width: min(100%, 320px);
+  }
+
+  .verify-card {
+    padding: 22px 19px 18px;
+    border-radius: 20px;
+  }
+
+  .verify-card h1 {
+    margin: 8px 0 5px;
+    font-size: 25px;
+  }
+
+  .verify-instructions {
+    font-size: 12px;
+  }
+
+  .verify-email {
+    font-size: 13px;
+  }
+
+  .verify-form {
+    margin-top: 18px;
+  }
+
+  .otp-label {
+    margin-bottom: 8px;
+    font-size: 11px;
+  }
+
+  .demo-hint {
+    margin-top: 7px;
+    font-size: 9px;
+  }
+
+  .resend-row {
+    min-height: 32px;
+    font-size: 10px;
+  }
+
+  .resend-countdown,
+  .resend-button {
+    font-size: 10px;
+  }
+
+  .otp-feedback {
+    min-height: 25px;
+  }
+
+  .otp-message {
+    font-size: 10px;
+  }
+
+  .verify-button {
+    height: 46px;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+
+  .otp-security-notice {
+    gap: 9px;
+    margin-top: 16px;
+    padding: 11px;
+    border-radius: 12px;
+  }
+
+  .otp-security-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .otp-security-copy strong {
+    font-size: 10px;
+  }
+
+  .otp-security-copy > span {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 640px) and (max-height: 700px) {
+  .verify-layout {
+    align-content: start;
+    padding-top: 70px;
+    padding-bottom: 10px;
+  }
+
+  .verify-visual {
+    margin-bottom: -8px;
+  }
+
+  .verification-art {
+    width: min(100%, 250px);
+  }
+
+  .verify-card {
+    padding: 15px 15px 12px;
+    border-radius: 17px;
+  }
+
+  .verify-card h1 {
+    margin: 5px 0 3px;
+    font-size: 22px;
+  }
+
+  .verify-instructions,
+  .verify-email {
+    font-size: 11px;
+  }
+
+  .verify-form {
+    margin-top: 10px;
+  }
+
+  .otp-label {
+    margin-bottom: 6px;
+    font-size: 10px;
+  }
+
+  .otp-digit {
+    height: 39px;
+    border-radius: 8px;
+    font-size: 17px;
+  }
+
+  .demo-hint {
+    margin-top: 4px;
+    font-size: 8px;
+  }
+
+  .resend-row {
+    min-height: 24px;
+    font-size: 9px;
+  }
+
+  .resend-countdown,
+  .resend-button {
+    font-size: 9px;
+  }
+
+  .otp-feedback {
+    min-height: 18px;
+  }
+
+  .otp-message {
+    font-size: 9px;
+  }
+
+  .verify-button {
+    height: 38px;
+    font-size: 11px;
+  }
+
+  .otp-security-notice {
+    gap: 7px;
+    margin-top: 9px;
+    padding: 8px;
+  }
+
+  .otp-security-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .otp-security-copy strong {
+    font-size: 9px;
+  }
+
+  .otp-security-copy > span {
+    font-size: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verify-button {
+    transition: none;
+  }
+}

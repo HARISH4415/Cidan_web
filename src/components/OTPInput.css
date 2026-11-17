@@ -1,0 +1,45 @@
+.otp-inputs {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(7px, 2vw, 12px);
+  width: 100%;
+}
+
+.otp-digit {
+  width: 100%;
+  min-width: 0;
+  height: 56px;
+  padding: 0;
+  border: 1px solid #d9dded;
+  border-radius: 12px;
+  outline: none;
+  background: #fff;
+  color: #101331;
+  font-family: 'Manrope', 'DM Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  text-align: center;
+  caret-color: #7650f5;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.otp-digit:focus {
+  border-color: #4565f5;
+  box-shadow: 0 0 0 4px rgb(69 101 245 / 11%);
+}
+
+.otp-inputs--invalid .otp-digit {
+  border-color: #9c8fff;
+}
+
+@media (max-width: 420px) {
+  .otp-inputs {
+    gap: 7px;
+  }
+
+  .otp-digit {
+    height: 49px;
+    border-radius: 10px;
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,21 @@
+.verification-art {
+  position: relative;
+  width: min(100%, 660px);
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.verification-art__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-mask-image: radial-gradient(ellipse 85% 82% at 50% 48%, #000 32%, transparent 68%);
+  mask-image: radial-gradient(ellipse 85% 82% at 50% 48%, #000 32%, transparent 68%);
+  mix-blend-mode: multiply;
+}
+
+@media (max-width: 700px) {
+  .verification-art {
+    width: min(100%, 460px);
+  }
+}
