@@ -1,7 +1,8 @@
 {
-  "name": "cidan-web",
-  "version": "1.0.0",
+  "name": "@harish_cidan/cidan-web",
+  "version": "1.0.1",
   "description": "Embeddable Cidan Compliance and Document Analysis Web Application",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",
