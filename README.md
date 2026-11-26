@@ -1,169 +1,43 @@
-# CIDAN - Regulatory Compliance & Document Analysis AI
+# CIDAN Regulatory Compliance AI
 
-[![npm version](https://img.shields.io/npm/v/@harish_cidan/cidan-web.svg)](https://www.npmjs.com/package/@harish_cidan/cidan-web)
-[![npm license](https://img.shields.io/npm/l/@harish_cidan/cidan-web.svg)](https://www.npmjs.com/package/@harish_cidan/cidan-web)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+Frontend demo built with React, TypeScript, and Vite.
 
-**CIDAN** is an enterprise-grade AI platform for regulatory compliance, circular auditing, and financial document analysis. It empowers banks, financial institutions, and compliance officers to effortlessly analyze regulatory circulars, detect policy gaps, interact with an AI compliance chatbot, and generate audit-ready compliance reports.
+## Development
 
-This package (`@harish_cidan/cidan-web`) allows you to embed the complete CIDAN portal or its individual components directly into any React application with zero friction.
-
----
-
-## 🚀 Key Features
-
-* 🔐 **Secure Officer Authentication:** Official email verification and two-factor OTP authentication flow.
-* 📄 **Multi-Format Document Upload:** Supports PDF, DOCX, and DOC documents up to 50 MB with instant validation.
-* 🧠 **Automated Circular Analysis:** AI-powered evaluation of banking circulars with compliance scoring, risk tagging, and clause breakdown.
-* 💬 **Interactive AI Compliance Assistant:** Built-in floating AI chatbot to answer complex regulatory questions and provide guidance.
-* 📊 **Audit-Ready PDF Reports:** One-click generation and export of structured compliance audit reports with full cryptographic verification IDs.
-* 🔄 **Flexible Routing:** Works out-of-the-box as a standalone application, under subpaths (`basename`), or seamlessly inside existing React Router setups.
-* 🎨 **Complete Modern UI:** Pre-styled with polished glassmorphic styling, responsive layout, and responsive mobile support.
-
----
-
-## 📦 Installation
-
-Install the package via npm:
-
-```bash
-npm install @harish_cidan/cidan-web
-```
-
-### Peer Dependencies
-
-Ensure your project has `react`, `react-dom`, and `react-router-dom` installed:
-
-```bash
-npm install react react-dom react-router-dom
-```
-
----
-
-## 💡 Quick Start
-
-To embed the entire CIDAN application into your React project, import `<CidanApp />` and its stylesheet:
-
-```tsx
-import React from 'react'
-import { CidanApp } from '@harish_cidan/cidan-web'
-import '@harish_cidan/cidan-web/dist/style.css'
-
-export default function App() {
-  return (
-    <div style={{ width: '100vw', height: '100vh' }}>
-      <CidanApp />
-    </div>
-  )
-}
-```
-
----
-
-## 🧭 Advanced Routing
-
-### 1. Mounting Under a Sub-path (Basename)
-
-If your app mounts CIDAN under a subpath like `/compliance` or `/cidan`:
-
-```tsx
-<CidanApp basename="/compliance" />
-```
-
-### 2. Embedding Inside an Existing React Router
-
-`<CidanApp />` automatically detects if it is already wrapped in a `<BrowserRouter>`. If your app already has router routes, you can mount `<CidanRoutes />` directly:
-
-```tsx
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { CidanRoutes } from '@harish_cidan/cidan-web'
-import '@harish_cidan/cidan-web/dist/style.css'
-
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomeDashboard />} />
-        {/* CIDAN Portal Routes */}
-        <Route path="/compliance/*" element={<CidanRoutes />} />
-      </Routes>
-    </BrowserRouter>
-  )
-}
-```
-
----
-
-## 🧩 Standalone Components & Utilities
-
-You can also import individual components, utilities, and services for custom integrations:
-
-```tsx
-import { 
-  AIChatbot, 
-  DocumentUpload, 
-  PDFReportPreview, 
-  Header, 
-  Hero, 
-  LoginForm, 
-  OTPInput 
-} from '@harish_cidan/cidan-web'
-import '@harish_cidan/cidan-web/dist/style.css'
-
-export function MyCustomPage() {
-  return (
-    <div>
-      <Header />
-      <DocumentUpload onUploadComplete={(file) => console.log('File uploaded:', file)} />
-      <AIChatbot />
-    </div>
-  )
-}
-```
-
----
-
-## ⚙️ Props & Configuration
-
-### `<CidanApp />`
-
-| Prop | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `basename` | `string` | `undefined` | The base URL pathname to serve CIDAN from (e.g. `"/compliance"`). |
-| `className` | `string` | `undefined` | Additional CSS class for the root wrapper container. |
-| `style` | `CSSProperties` | `undefined` | Custom inline styling applied to the root container. |
-
----
-
-## 🔑 Demo & Testing
-
-For testing and demonstration:
-* **Default OTP:** `123456`
-* Any valid email format (e.g., `officer@bank.com`) can be used to initiate the demo verification flow.
-
----
-
-## 🛠️ Development & Contributing
-
-To build and test the package locally:
-
-```bash
-# Clone the repository
-git clone https://github.com/your-username/cidan-web.git
-cd cidan-web
-
-# Install dependencies
+```sh
 npm install
-
-# Start development server
 npm run dev
-
-# Build library & generate TypeScript definitions
-npm run build
 ```
 
----
+Run `npm run build` for a production build and `npm run lint` for ESLint.
 
-## 📄 License
+## Environment
 
-MIT © Harish & CIDAN Team
+Set these variables in the root `.env` file:
+
+```env
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+VITE_CIDAN_API_URL=
+```
+
+Restart Vite after changing environment variables. `.env` files are ignored by Git.
+Only the Supabase anon key belongs in this browser app; never add a Supabase
+service-role key, backend shared token, or SMTP credentials to a `VITE_*` variable.
+
+## Authentication and data access
+
+- `/login` sends an email OTP through Supabase Auth and allows Supabase Auth to create a new account. Enable email sign-ups in Supabase Auth settings. This open-registration behavior is for demos only; it does not verify bank affiliation or assign a bank profile.
+- `/verify-otp` verifies the code with Supabase Auth. Protected pages require a valid Supabase session.
+- After successful OTP verification, the app inserts a `login_success` row into `public.user_history`.
+- Run `supabase/migrations/20261123200000_user_history_rls.sql` in the Supabase SQL Editor to enable authenticated, per-email history access. The migration grants no history access to anonymous users.
+- Configure Supabase Auth email OTP templates and delivery settings in the Supabase dashboard.
+- Bank data helpers read the authenticated user's active profile from `public.users` and scope supported reads by its `bank_id`. Database Row Level Security must enforce tenant access; client-side filters are not a security boundary.
+- `src/lib/cidanApi.ts` sends the current Supabase access token to the configured FastAPI service. The FastAPI service must validate Supabase JWTs and authorize the user's bank. Never put its shared API token in the browser.
+
+## Current feature status
+
+- Document upload, compliance analysis, deployment, and the AI assistant remain frontend demonstrations. The Copilot has no chat API endpoint in this project, so messages and attachments are not transmitted or stored; the UI reports that limitation instead of displaying mock AI replies. Voice input, when supported by the browser, only fills the composer.
+- The Connect with CIDAN configuration modal is UI-only. No integration verification endpoint or integration storage/list API is implemented; Save & Verify adds a session-only, unverified preview and reports that backend verification/storage is unavailable.
+- The integration document viewer displays the selected session-only configuration and supports plain-text copy/download when document data is available, but no integration-document retrieval endpoint exists yet. Retrieved rules and original raw responses therefore remain unavailable until the backend contract is implemented.
+- Implementing those workflows requires the FastAPI source/API response contracts and the deployed database schema/RLS policies.

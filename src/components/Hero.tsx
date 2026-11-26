@@ -13,7 +13,7 @@ function Hero() {
   return (
     <div className="hero-content">
       <div className="hero-copy">
-        <h1>Secure Banking<br />Compliance<br /><span>Made Simple</span></h1>
+        <h1>Secure<br />Banking<br />Compliance<br /><span>Made Simple</span></h1>
         <p>Access compliance tools with your official bank account.</p>
         <div className="hero-assurance">
           <span className="assurance-icon" aria-hidden="true">

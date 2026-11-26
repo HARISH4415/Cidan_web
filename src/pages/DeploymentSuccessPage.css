@@ -197,7 +197,7 @@
 }
 
 .deployment-success-page .chatbot {
-  z-index: 3;
+  z-index: 1200;
   right: max(18px, env(safe-area-inset-right));
   bottom: max(18px, env(safe-area-inset-bottom));
 }

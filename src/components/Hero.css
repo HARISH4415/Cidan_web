@@ -10,7 +10,7 @@
 .hero-copy {
   position: absolute;
   z-index: 1;
-  top: 47%;
+  top: 49.5%;
   left: clamp(36px, 7%, 92px);
   width: min(45%, 450px);
   transform: translateY(-50%);

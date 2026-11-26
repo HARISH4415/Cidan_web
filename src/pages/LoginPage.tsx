@@ -1,4 +1,3 @@
-import { AIChatbot } from '../components/AIChatbot'
 import { Header } from '../components/Header'
 import { Hero } from '../components/Hero'
 import { LoginForm } from '../components/LoginForm'
@@ -12,7 +11,6 @@ function LoginPage() {
         <Hero />
       </section>
       <LoginForm />
-      <AIChatbot />
     </main>
   )
 }

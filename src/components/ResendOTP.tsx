@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react'
 const RESEND_DELAY = 30
 
 type ResendOTPProps = {
-  onResend: () => void
+  onResend: () => Promise<boolean>
 }
 
 function ResendOTP({ onResend }: ResendOTPProps) {
   const [secondsRemaining, setSecondsRemaining] = useState(RESEND_DELAY)
+  const [isResending, setIsResending] = useState(false)
 
   useEffect(() => {
     if (secondsRemaining === 0) return
@@ -16,10 +17,15 @@ function ResendOTP({ onResend }: ResendOTPProps) {
     return () => window.clearTimeout(timer)
   }, [secondsRemaining])
 
-  function resend() {
-    if (secondsRemaining > 0) return
-    onResend()
-    setSecondsRemaining(RESEND_DELAY)
+  async function resend() {
+    if (secondsRemaining > 0 || isResending) return
+
+    setIsResending(true)
+    try {
+      if (await onResend()) setSecondsRemaining(RESEND_DELAY)
+    } finally {
+      setIsResending(false)
+    }
   }
 
   return (
@@ -28,7 +34,9 @@ function ResendOTP({ onResend }: ResendOTPProps) {
       {secondsRemaining > 0 ? (
         <span className="resend-countdown">Resend in 00:{String(secondsRemaining).padStart(2, '0')}</span>
       ) : (
-        <button className="resend-button" type="button" onClick={resend}>Resend code</button>
+        <button className="resend-button" type="button" onClick={resend} disabled={isResending}>
+          {isResending ? 'Sending…' : 'Resend code'}
+        </button>
       )}
     </div>
   )

@@ -23,12 +23,17 @@ import { complianceRisks, policyComparison, testCases, type ComplianceRisk, type
 import { AIChatbot } from '../components/AIChatbot'
 import { Header } from '../components/Header'
 import { PDFReportPreview } from '../components/PDFReportPreview'
+import { recordDemoDeployment } from '../services/userHistoryService'
 import { createWorkflowId } from '../utils/workflowId'
 import { getDocumentWorkflow, updateWorkflowStatus } from '../utils/workflowState'
 import './ComplianceAnalysisPage.css'
 
 type DetailSelection = { type: 'test'; id: string } | { type: 'risk'; id: string } | null
-type NavigationState = { fileName?: string }
+type NavigationState = {
+  fileName?: string
+  existingRuleNames?: string[]
+  localPreview?: boolean
+}
 
 function ComplianceAnalysisPage() {
   const navigate = useNavigate()
@@ -37,7 +42,7 @@ function ComplianceAnalysisPage() {
   const navigationState = location.state && typeof location.state === 'object'
     ? location.state as NavigationState
     : null
-  const fileName = workflow?.fileName || navigationState?.fileName || 'Uploaded document'
+  const fileName = navigationState?.fileName || workflow?.fileName || 'Uploaded document'
   const [workflowId] = useState(() => workflow?.workflowId || createWorkflowId())
   const [detail, setDetail] = useState<DetailSelection>(null)
   const [showDeploymentModal, setShowDeploymentModal] = useState(false)
@@ -66,6 +71,10 @@ function ComplianceAnalysisPage() {
     setIsDeploying(true)
     updateWorkflowStatus('demo-deployment-complete')
     window.setTimeout(() => {
+      void recordDemoDeployment({ documentName: fileName, workflowId }).catch((error: unknown) => {
+        const detail = error instanceof Error ? error.message : 'Unexpected history error.'
+        console.error('[History] Could not record demo workflow completion:', detail)
+      })
       navigate('/deployment-success')
     }, 650)
   }
@@ -109,12 +118,19 @@ function ComplianceAnalysisPage() {
         </div>
         <div className="compliance-demo-banner" role="note">
           <span className="compliance-demo-dot" />
-          Sample demonstration analysis
+          {navigationState?.localPreview
+            ? 'Sample demonstration analysis · Local file selection only'
+            : 'Sample demonstration analysis'}
           <span className="compliance-document-name" title={fileName}>
             <FileText size={14} aria-hidden="true" />
             {fileName}
           </span>
         </div>
+        {navigationState?.localPreview && navigationState.existingRuleNames?.length ? (
+          <p className="compliance-local-inputs">
+            Existing Rules selected for this preview: {navigationState.existingRuleNames.join(', ')}
+          </p>
+        ) : null}
 
         <section className="compliance-section" aria-labelledby="policy-title">
           <div className="compliance-section-heading">
@@ -195,7 +211,7 @@ function ComplianceAnalysisPage() {
           onClose={closeReportPreview}
         />
       )}
-      <AIChatbot />
+      <AIChatbot activeContext={{ label: `Current Circular: ${fileName}`, status: 'pending' }} />
       {showDeploymentModal && (
         <DeploymentModal
           isDeploying={isDeploying}

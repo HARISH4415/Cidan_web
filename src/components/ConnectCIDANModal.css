@@ -1,0 +1,684 @@
+.cidan-modal-backdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(17 22 48 / 52%);
+  backdrop-filter: blur(3px);
+  animation: cidan-backdrop-in 150ms ease both;
+}
+
+.cidan-modal {
+  display: flex;
+  width: min(940px, 100%);
+  max-height: min(90vh, 900px);
+  max-height: min(90dvh, 900px);
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgb(231 229 247 / 95%);
+  border-radius: 22px;
+  outline: none;
+  background: #fff;
+  box-shadow: 0 28px 90px rgb(11 16 42 / 30%);
+  animation: cidan-modal-in 180ms ease both;
+}
+
+.cidan-modal-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 88px;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  border-bottom: 1px solid #ececf4;
+  background: #fff;
+}
+
+.cidan-modal-brand-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #e3defe;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #f0edff, #e6eaff);
+  color: #6554df;
+}
+
+.cidan-modal-heading {
+  min-width: 0;
+  flex: 1;
+}
+
+.cidan-modal-heading h2 {
+  margin: 0;
+  color: #1d2340;
+  font-family: 'Manrope', 'DM Sans', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.35px;
+}
+
+.cidan-modal-heading p {
+  margin: 4px 0 0;
+  color: #737d96;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.cidan-modal-close {
+  display: grid;
+  width: 37px;
+  height: 37px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #ececf3;
+  border-radius: 11px;
+  background: #fff;
+  color: #737b91;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.cidan-modal-close:hover:not(:disabled) {
+  background: #f5f3ff;
+  color: #6554df;
+}
+
+.cidan-modal-close:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.cidan-modal-form {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.cidan-modal-body {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 20px 24px 24px;
+  scrollbar-color: #cbc6e8 transparent;
+  scrollbar-width: thin;
+}
+
+.cidan-json-section {
+  margin-bottom: 22px;
+  overflow: hidden;
+  border: 1px solid #e6e4f2;
+  border-radius: 14px;
+  background: #fbfbfe;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.cidan-json-section--open {
+  border-color: #9e8ef2;
+  background: #fff;
+}
+
+.cidan-json-toggle {
+  display: flex;
+  width: 100%;
+  min-height: 68px;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.cidan-json-icon {
+  display: grid;
+  width: 37px;
+  height: 37px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 11px;
+  background: #efedff;
+  color: #6554df;
+}
+
+.cidan-json-copy {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: 3px;
+}
+
+.cidan-json-copy strong {
+  color: #242a46;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.cidan-json-copy > span {
+  color: #7b8399;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.cidan-chevron {
+  flex: 0 0 auto;
+  color: #777e96;
+  transition: transform 160ms ease;
+}
+
+.cidan-chevron--open {
+  transform: rotate(180deg);
+}
+
+.cidan-json-panel {
+  padding: 14px 15px 15px;
+  border-top: 1px solid #eeedf5;
+}
+
+.cidan-json-panel .cidan-code-input {
+  min-height: 118px;
+  padding: 13px 14px;
+  border-radius: 12px;
+}
+
+.cidan-code-input {
+  display: block;
+  width: 100%;
+  min-height: 86px;
+  resize: vertical;
+  padding: 11px 12px;
+  border: 1px solid #e0e2ec;
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+  color: #29314c;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.cidan-code-input:focus {
+  border-color: #9380ee;
+  box-shadow: 0 0 0 3px rgb(118 80 245 / 10%);
+}
+
+.cidan-code-input::placeholder {
+  color: #a0a6b8;
+}
+
+.cidan-json-actions {
+  display: flex;
+  min-height: 39px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.cidan-json-clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #58617a;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 650;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.cidan-json-clear:hover {
+  background: #f5f3ff;
+  color: #5f4ad8;
+}
+
+.cidan-json-feedback {
+  margin: 9px 0 0;
+  color: #39805f;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.cidan-json-feedback--error {
+  color: #ae4052;
+}
+
+.cidan-apply-json {
+  flex: 0 0 auto;
+}
+
+.cidan-form-section {
+  margin-top: 23px;
+}
+
+.cidan-form-section + .cidan-form-section {
+  padding-top: 20px;
+  border-top: 1px solid #edeef4;
+}
+
+.cidan-form-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 15px;
+  color: #202642;
+  font-family: 'Manrope', 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.cidan-form-section h3 > span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #e1dcff;
+  border-radius: 8px;
+  background: #f2f0ff;
+  color: #6654dc;
+  font-size: 10px;
+}
+
+.cidan-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+}
+
+.cidan-form-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cidan-form-field > label {
+  color: #4a526b;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.cidan-required {
+  color: #745ce2;
+}
+
+.cidan-form-field input,
+.cidan-form-field select {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  padding: 0 11px;
+  border: 1px solid #e0e2ec;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #29314c;
+  font: inherit;
+  font-size: 11px;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.cidan-form-field input::placeholder {
+  color: #a0a6b8;
+}
+
+.cidan-form-field input:focus,
+.cidan-form-field select:focus {
+  border-color: #9380ee;
+  box-shadow: 0 0 0 3px rgb(118 80 245 / 9%);
+}
+
+.cidan-database-select {
+  position: relative;
+}
+
+.cidan-database-select select {
+  padding-right: 62px;
+}
+
+.cidan-database-select img {
+  position: absolute;
+  top: 50%;
+  right: 31px;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.cidan-form-field input[aria-invalid='true'],
+.cidan-form-field select[aria-invalid='true'],
+.cidan-form-field .cidan-code-input[aria-invalid='true'] {
+  border-color: #d26b79;
+}
+
+.cidan-field-hint {
+  color: #848ba0;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.cidan-field-error {
+  color: #b04454;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.cidan-type-selector {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.cidan-type-option {
+  display: flex;
+  min-height: 74px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid #e5e6ef;
+  border-radius: 12px;
+  background: #fff;
+  color: #727b92;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 700;
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+
+.cidan-type-option-image {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+.cidan-type-option:hover {
+  border-color: #c9c1f3;
+  color: #6654dc;
+}
+
+.cidan-type-option--selected {
+  border-color: #9380ee;
+  background: #f5f3ff;
+  box-shadow: 0 0 0 2px rgb(118 80 245 / 7%);
+  color: #604bd3;
+}
+
+.cidan-headers-input {
+  min-height: 75px;
+}
+
+.cidan-modal-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 76px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 13px 24px;
+  border-top: 1px solid #ececf4;
+  background: #fff;
+  box-shadow: 0 -7px 20px rgb(29 35 68 / 3%);
+}
+
+.cidan-engine-label {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+  color: #737c94;
+  font-size: 11px;
+}
+
+.cidan-engine-label svg {
+  color: #6d59df;
+}
+
+.cidan-engine-label strong {
+  color: #4e43a8;
+  font-size: 11px;
+}
+
+.cidan-modal-footer-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 9px;
+}
+
+.cidan-button {
+  display: inline-flex;
+  min-height: 39px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 750;
+  transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
+}
+
+.cidan-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.cidan-button--secondary {
+  border-color: #e2e4ed;
+  background: #fff;
+  color: #58617a;
+}
+
+.cidan-button--secondary:hover:not(:disabled) {
+  border-color: #c9c1f3;
+  background: #f9f8ff;
+  color: #5f4ad8;
+}
+
+.cidan-button--primary {
+  background: var(--primary-gradient);
+  box-shadow: 0 6px 15px rgb(93 78 231 / 21%);
+  color: #fff;
+}
+
+.cidan-button--primary:hover:not(:disabled) {
+  box-shadow: 0 9px 18px rgb(93 78 231 / 28%);
+}
+
+.cidan-submit-error {
+  position: absolute;
+  right: 24px;
+  bottom: calc(100% + 7px);
+  left: 24px;
+  margin: 0;
+  padding: 9px 12px;
+  border: 1px solid #f0cbd1;
+  border-radius: 9px;
+  background: #fff6f7;
+  color: #9c3e4d;
+  font-size: 10px;
+  line-height: 1.45;
+  box-shadow: 0 5px 15px rgb(34 28 54 / 8%);
+}
+
+.cidan-loading-spinner {
+  animation: cidan-spin 850ms linear infinite;
+}
+
+@keyframes cidan-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes cidan-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cidan-modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 680px) {
+  .cidan-modal-backdrop {
+    padding: 10px;
+  }
+
+  .cidan-modal {
+    width: 100%;
+    max-height: calc(100vh - 20px);
+    max-height: calc(100dvh - 20px);
+    border-radius: 17px;
+  }
+
+  .cidan-modal-header {
+    min-height: 74px;
+    gap: 10px;
+    padding: 13px 15px;
+  }
+
+  .cidan-modal-brand-icon {
+    width: 41px;
+    height: 41px;
+    border-radius: 12px;
+  }
+
+  .cidan-modal-heading h2 {
+    font-size: 16px;
+  }
+
+  .cidan-modal-heading p {
+    max-width: 270px;
+    font-size: 9px;
+  }
+
+  .cidan-modal-close {
+    width: 34px;
+    height: 34px;
+  }
+
+  .cidan-modal-body {
+    padding: 14px 15px 18px;
+  }
+
+  .cidan-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .cidan-form-section {
+    margin-top: 19px;
+  }
+
+  .cidan-form-section + .cidan-form-section {
+    padding-top: 17px;
+  }
+
+  .cidan-type-selector {
+    gap: 6px;
+  }
+
+  .cidan-type-option {
+    min-height: 68px;
+    font-size: 9px;
+  }
+
+  .cidan-type-option-image {
+    width: 31px;
+    height: 31px;
+  }
+
+  .cidan-modal-footer {
+    min-height: 69px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 15px;
+  }
+
+  .cidan-engine-label {
+    font-size: 9px;
+  }
+
+  .cidan-engine-label strong {
+    font-size: 9px;
+  }
+
+  .cidan-modal-footer-actions {
+    gap: 6px;
+  }
+
+  .cidan-button {
+    min-height: 36px;
+    padding: 0 10px;
+    font-size: 9px;
+  }
+
+  .cidan-submit-error {
+    right: 15px;
+    left: 15px;
+  }
+}
+
+@media (max-width: 390px) {
+  .cidan-modal-footer {
+    align-items: flex-start;
+  }
+
+  .cidan-modal-footer-actions {
+    width: 100%;
+  }
+
+  .cidan-modal-footer-actions .cidan-button {
+    flex: 1;
+  }
+
+  .cidan-json-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cidan-apply-json {
+    align-self: flex-end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cidan-modal-backdrop,
+  .cidan-modal,
+  .cidan-loading-spinner {
+    animation: none;
+  }
+
+  .cidan-chevron,
+  .cidan-button,
+  .cidan-type-option,
+  .existing-rules-tab {
+    transition: none;
+  }
+}

@@ -1,5 +1,4 @@
 export const EMAIL_STORAGE_KEY = 'cidan-email'
-export const VERIFIED_SESSION_KEY = 'cidan-email-verified'
 
 export function isEmailAddress(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)

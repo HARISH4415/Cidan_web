@@ -127,16 +127,16 @@
   font-weight: 600;
 }
 
-.demo-hint {
+.otp-hint {
   margin-top: 10px;
   color: #8189a2;
   font-size: 10px;
   text-align: center;
 }
 
-.demo-hint strong {
-  color: #6552dc;
-  letter-spacing: 1px;
+.resend-button:disabled {
+  cursor: wait;
+  opacity: 0.6;
 }
 
 .resend-row {
@@ -322,7 +322,7 @@
     font-size: 19px;
   }
 
-  .demo-hint {
+  .otp-hint {
     margin-top: 6px;
     font-size: 9px;
   }
@@ -392,7 +392,7 @@
     font-size: 17px;
   }
 
-  .demo-hint {
+  .otp-hint {
     margin-top: 4px;
     font-size: 8px;
   }
@@ -485,7 +485,7 @@
     font-size: 11px;
   }
 
-  .demo-hint {
+  .otp-hint {
     margin-top: 7px;
     font-size: 9px;
   }
@@ -580,7 +580,7 @@
     font-size: 17px;
   }
 
-  .demo-hint {
+  .otp-hint {
     margin-top: 4px;
     font-size: 8px;
   }

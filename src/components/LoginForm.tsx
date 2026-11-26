@@ -1,7 +1,8 @@
 import { useRef, useState, type FormEvent } from 'react'
 import { ArrowRight, LoaderCircle, Mail, ShieldCheck } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { EMAIL_STORAGE_KEY, VERIFIED_SESSION_KEY, getEmailFromNavigationState, isEmailAddress } from '../utils/emailState'
+import { supabase, supabaseConfigError } from '../lib/supabase'
+import { EMAIL_STORAGE_KEY, getEmailFromNavigationState, isEmailAddress } from '../utils/emailState'
 import './LoginForm.css'
 
 function LoginForm() {
@@ -13,7 +14,7 @@ function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const emailRef = useRef<HTMLInputElement>(null)
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const input = emailRef.current
     if (!input) return
@@ -28,18 +29,34 @@ function LoginForm() {
 
     setMessage('')
     setMessageType('')
+    if (!supabase) {
+      setMessageType('error')
+      setMessage(supabaseConfigError ?? 'Supabase is not configured. Check the environment variables.')
+      return
+    }
+
     setIsLoading(true)
-    sessionStorage.removeItem(VERIFIED_SESSION_KEY)
-    window.setTimeout(() => {
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email: normalizedEmail,
+        options: { shouldCreateUser: true },
+      })
+      if (error) throw error
+
       sessionStorage.setItem(EMAIL_STORAGE_KEY, normalizedEmail)
       navigate('/verify-otp', { state: { email: normalizedEmail } })
-    }, 450)
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : 'Unexpected authentication error.'
+      console.error('[Auth] Could not send email OTP:', detail)
+      setMessageType('error')
+      setMessage('Could not send a code. Check that Supabase Auth sign-ups are enabled and email delivery is configured.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   function handleEmailChange(value: string) {
     setEmail(value)
-    sessionStorage.setItem(EMAIL_STORAGE_KEY, value)
-    sessionStorage.removeItem(VERIFIED_SESSION_KEY)
     setMessage('')
     setMessageType('')
   }
@@ -47,9 +64,8 @@ function LoginForm() {
   return (
     <section className="login-section" aria-labelledby="login-title">
       <div className="login-card">
-        <div className="card-kicker"><span /> SECURE PORTAL</div>
         <h2 id="login-title">Login with your bank email</h2>
-        <p className="login-description">Enter your official bank email to continue to secure verification</p>
+        <p className="login-description">Enter your official bank email to continue to secure verification.</p>
 
         <form className="login-form" onSubmit={handleSubmit} noValidate>
           <label className="input-label" htmlFor="bank-email">Bank email address</label>
@@ -76,7 +92,7 @@ function LoginForm() {
             {isLoading ? (
               <>
                 <LoaderCircle className="button-spinner" size={16} aria-hidden="true" />
-                Preparing verification…
+                Sending verification code…
               </>
             ) : (
               <>

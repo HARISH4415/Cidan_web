@@ -73,6 +73,263 @@
   margin-left: auto;
 }
 
+.history-header-button {
+  display: inline-flex;
+  height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  border: 1px solid #e1e3f0;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 84%);
+  box-shadow: 0 4px 14px rgb(43 39 92 / 5%);
+  color: #29314c;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.history-header-button img {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.history-header-button:hover,
+.history-header-button--active {
+  transform: translateY(-1px);
+  border-color: #c5bbf8;
+  background: #f5f3ff;
+  box-shadow: 0 6px 16px rgb(72 60 163 / 11%);
+  color: #5143b7;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-menu-trigger {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 9px;
+  padding: 4px 10px 4px 4px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.user-menu-trigger:hover,
+.user-menu-trigger[aria-expanded='true'] {
+  border-color: #e4e0fa;
+  background: rgb(255 255 255 / 86%);
+  box-shadow: 0 6px 16px rgb(43 39 92 / 7%);
+}
+
+.user-menu-chevron {
+  flex: 0 0 auto;
+  color: #657185;
+  transition: transform 160ms ease;
+}
+
+.user-menu-chevron--open {
+  transform: rotate(180deg);
+}
+
+.user-menu-dropdown {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 8px);
+  right: 0;
+  display: grid;
+  min-width: 220px;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid #e6e4f2;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 18px 44px rgb(31 28 74 / 14%);
+  animation: help-in 140ms ease-out;
+}
+
+.user-menu-account {
+  display: grid;
+  gap: 2px;
+  padding: 6px 10px 9px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #efeff6;
+}
+
+.user-menu-account span {
+  color: #777f98;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.user-menu-account strong {
+  overflow: hidden;
+  color: #182033;
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-menu-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 11px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #454d69;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.user-menu-item svg {
+  flex: 0 0 auto;
+  color: #6858ce;
+}
+
+.user-menu-item:hover:not(:disabled) {
+  background: #f5f3ff;
+  color: #5143b7;
+}
+
+.user-menu-item--danger {
+  color: #d94c4b;
+}
+
+.user-menu-item--danger svg {
+  color: #df5c5b;
+}
+
+.user-menu-item--danger:hover:not(:disabled) {
+  background: #fff2f1;
+  color: #c23938;
+}
+
+.user-menu-item:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.user-profile-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #7148e8, #5730d7);
+  box-shadow: 0 5px 12px rgb(87 48 215 / 22%);
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.user-profile-copy {
+  display: flex;
+  max-width: 200px;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 3px;
+}
+
+.user-profile-greeting,
+.user-profile-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-profile-greeting {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #657185;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.user-profile-greeting svg {
+  flex: 0 0 auto;
+  color: #eaa629;
+  stroke-width: 2.4;
+}
+
+.user-profile-name {
+  color: #182033;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.signout-button {
+  display: inline-flex;
+  width: 95px;
+  min-width: 95px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 15px;
+  border: 1px solid #f5d9d7;
+  border-radius: 999px;
+  background: #fff4f2;
+  color: #df5c5b;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.signout-button span {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.signout-button svg {
+  flex: 0 0 auto;
+}
+
+.signout-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: #efb9b5;
+  background: #ffebe8;
+}
+
+.signout-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.header-auth-message {
+  position: absolute;
+  top: 62px;
+  right: 0;
+  max-width: min(440px, 100%);
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid #f1c7cc;
+  border-radius: 10px;
+  background: #fff5f5;
+  color: #9d2936;
+  font-size: 12px;
+}
+
 .help-button:hover {
   transform: translateY(-1px);
   border-color: #bdb5f8;
@@ -191,6 +448,18 @@
     gap: 8px;
   }
 
+  .history-header-button {
+    height: 36px;
+    gap: 6px;
+    padding: 0 11px;
+    font-size: 12px;
+  }
+
+  .history-header-button img {
+    width: 16px;
+    height: 16px;
+  }
+
   .brand-mark {
     width: 38px;
     height: 38px;
@@ -204,10 +473,22 @@
     font-size: 10px;
   }
 
-  .help-button {
-    min-width: 82px;
-    height: 37px;
-    padding: 0 12px;
+  .user-menu-trigger {
+    gap: 6px;
+    padding: 3px 8px 3px 3px;
+  }
+
+  .user-profile-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .user-profile-copy {
+    max-width: 125px;
+  }
+
+  .user-menu-dropdown {
+    min-width: 200px;
   }
 
   .help-dialog {
@@ -215,8 +496,32 @@
   }
 }
 
+@media (max-width: 420px) {
+  .header-actions {
+    gap: 6px;
+  }
+
+  .user-menu-trigger {
+    gap: 4px;
+    padding: 3px 7px 3px 3px;
+  }
+
+  .user-profile-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  .user-profile-copy {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .help-dialog {
+  .help-dialog,
+  .user-menu-dropdown,
+  .user-menu-chevron {
     animation: none;
+    transition: none;
   }
 }

@@ -1,13 +1,18 @@
 .compliance-page {
   position: relative;
   display: flow-root;
-  min-height: 100vh;
-  padding-bottom: 100px;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background: #f8f9ff;
 }
 
+.compliance-page > .site-header {
+  position: fixed;
+}
+
 .compliance-page .chatbot {
-  z-index: 9;
+  z-index: 1200;
   bottom: max(86px, calc(env(safe-area-inset-bottom) + 76px));
 }
 
@@ -56,8 +61,20 @@
 .compliance-content {
   display: grid;
   width: min(1120px, calc(100% - 48px));
+  height: calc(100vh - 78px);
+  height: calc(100dvh - 78px);
   gap: 22px;
-  margin: 98px auto 0;
+  align-content: start;
+  margin: 78px auto 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 20px 0 120px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.compliance-content::-webkit-scrollbar {
+  display: none;
 }
 
 .compliance-demo-banner {
@@ -95,6 +112,18 @@
   font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.compliance-local-inputs {
+  margin: -12px 0 0;
+  padding: 9px 13px;
+  border: 1px solid #e4e0fa;
+  border-radius: 10px;
+  background: #fff;
+  color: #737d9a;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .compliance-section {
@@ -681,11 +710,15 @@
 
 @media (max-width: 700px) {
   .compliance-page {
-    padding-bottom: 90px;
+    padding-bottom: 0;
   }
 
   .compliance-content {
     width: calc(100% - 32px);
+    height: calc(100vh - 68px);
+    height: calc(100dvh - 68px);
+    margin-top: 68px;
+    padding-top: 16px;
   }
 
   .compliance-page-heading {
@@ -703,7 +736,6 @@
 
   .compliance-content {
     gap: 16px;
-    margin-top: 84px;
   }
 
   .compliance-section {
