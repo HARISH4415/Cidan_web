@@ -1,5 +1,5 @@
-import { useEffect, useState, type ReactNode } from 'react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
+import { BrowserRouter, Navigate, Route, Routes, useInRouterContext } from 'react-router-dom'
 import { LoginPage } from './pages/LoginPage'
 import { UploadDocumentPage } from './pages/UploadDocumentPage'
 import { ComplianceAnalysisPage } from './pages/ComplianceAnalysisPage'
@@ -7,6 +7,12 @@ import { DeploymentSuccessPage } from './pages/DeploymentSuccessPage'
 import { VerifyOTPPage } from './pages/VerifyOTPPage'
 import { SupabaseTest } from './components/SupabaseTest'
 import { supabase, supabaseConfigError } from './lib/supabase'
+
+export interface CidanAppProps {
+  basename?: string
+  className?: string
+  style?: CSSProperties
+}
 
 type AuthStatus = 'checking' | 'authenticated' | 'unauthenticated' | 'error'
 
@@ -83,30 +89,48 @@ function SessionEntryRedirect() {
   return <Navigate to={status === 'authenticated' ? '/upload-document' : '/login'} replace />
 }
 
-function App() {
+export function CidanRoutes() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<SessionEntryRedirect />} />
-        <Route path="/login" element={<PublicOnlyRoute><LoginPage /></PublicOnlyRoute>} />
-        <Route path="/verify-otp" element={<VerifyOTPPage />} />
-        <Route path="/supabase-test" element={<SupabaseTest />} />
-        <Route
-          path="/upload-document"
-          element={<ProtectedRoute><UploadDocumentPage /></ProtectedRoute>}
-        />
-        <Route
-          path="/compliance-analysis"
-          element={<ProtectedRoute><ComplianceAnalysisPage /></ProtectedRoute>}
-        />
-        <Route
-          path="/deployment-success"
-          element={<ProtectedRoute><DeploymentSuccessPage /></ProtectedRoute>}
-        />
-        <Route path="*" element={<SessionEntryRedirect />} />
-      </Routes>
+    <Routes>
+      <Route path="/" element={<SessionEntryRedirect />} />
+      <Route path="/login" element={<PublicOnlyRoute><LoginPage /></PublicOnlyRoute>} />
+      <Route path="/verify-otp" element={<VerifyOTPPage />} />
+      <Route path="/supabase-test" element={<SupabaseTest />} />
+      <Route
+        path="/upload-document"
+        element={<ProtectedRoute><UploadDocumentPage /></ProtectedRoute>}
+      />
+      <Route
+        path="/compliance-analysis"
+        element={<ProtectedRoute><ComplianceAnalysisPage /></ProtectedRoute>}
+      />
+      <Route
+        path="/deployment-success"
+        element={<ProtectedRoute><DeploymentSuccessPage /></ProtectedRoute>}
+      />
+      <Route path="*" element={<SessionEntryRedirect />} />
+    </Routes>
+  )
+}
+
+export function CidanApp({ basename, className, style }: CidanAppProps) {
+  const isInRouter = useInRouterContext()
+
+  const content = (
+    <div className={`cidan-app-container ${className || ''}`} style={style}>
+      <CidanRoutes />
+    </div>
+  )
+
+  if (isInRouter) {
+    return content
+  }
+
+  return (
+    <BrowserRouter basename={basename}>
+      {content}
     </BrowserRouter>
   )
 }
 
-export default App
+export default CidanApp
